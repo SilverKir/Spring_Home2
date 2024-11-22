@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+       <title>Users</title>
+</head>
+<body>
+<div class="form-block" th:switch="${users}">
+    <h2 th:case="null">No users found!</h2>
+    <div th:case="*">
+        <h2>Users</h2>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td>
+                    <form action="#" th:action="@{user-update/{id}(id=${user.id})}" method="GET">
+                        <button type="submit">Update</button>
+                    </form>
+
+                    <form action="#" th:action="@{user-delete/{id}(id=${user.id})}" method="GET">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>
+        <a class="btn btn-primary" href="/user-create">Добавить пользователя</a>
+    </p>
+</div>
+</body>
+</html>
